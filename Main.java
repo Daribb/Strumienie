@@ -6,15 +6,16 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        // Вызначаем начальный случайный хеш
+        // Początkowy losowy hash
+
         String initialHash = generateRandomHash();
         System.out.println("Initial Hash: " + initialHash);
 
-        // Список транзакций
+        // Lista transakcji
         List<Transaction> transactions = new ArrayList<>();
         String lastHash = initialHash;
 
-        // Генерация 5 объектов Transaction
+        //  Generowanie 5 obiektów transakcji
         for (int i = 0; i < 5; i++) {
             double randomAmount = generateRandomAmount();
             Transaction transaction = findValidTransaction(randomAmount, lastHash);
@@ -25,7 +26,7 @@ public class Main {
         }
     }
 
-    // Класс Transaction
+    // Class Transaction
     static class Transaction {
         private double amount;
         private String lastTransaction;
@@ -51,7 +52,7 @@ public class Main {
         }
     }
 
-    // Поиск корректного nonce
+    // Znalezienie prawidłowego nonce
     private static Transaction findValidTransaction(double amount, String lastTransaction) throws NoSuchAlgorithmException {
         long nonce = 0;
         String hash;
@@ -63,7 +64,7 @@ public class Main {
         return new Transaction(amount, lastTransaction, nonce - 1);
     }
 
-    // Генерация хеша
+    // Generowanie skrótów
     private static String hash(String input) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hashBytes = digest.digest(input.getBytes());
@@ -76,14 +77,14 @@ public class Main {
         return hexString.toString();
     }
 
-    // Генерация случайного начального хеша
+    // Generowanie losowego skrótu początkowego
     private static String generateRandomHash() throws NoSuchAlgorithmException {
         Random random = new Random();
         String randomString = Long.toString(random.nextLong());
         return hash(randomString);
     }
 
-    // Генерация случайного значения amount
+    // Generowanie losowej wartości kwoty
     private static double generateRandomAmount() {
         Random random = new Random();
         return 10 + (1000 - 10) * random.nextDouble();
